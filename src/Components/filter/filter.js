@@ -74,7 +74,6 @@ const Filter = ({
     if (array.includes(false)) return other_input('all', false);
     return arrayFilters;
   }, [arrayFilters]);
-  
 
   return (
     <div className='filter'>
