@@ -1,0 +1,64 @@
+.filter {
+  width: 232px;
+  height: 252px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+.title_filter {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  margin: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  color: #4a4a4a;
+}
+.container_filter {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+
+  color: #4a4a4a;
+}
+
+label {
+  position: relative;
+  padding-left: 20px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+
+  font-size: 13px;
+  line-height: 12px;
+  width: 212px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  color: #4a4a4a;
+}
+.checkbox_deleted {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.check__box {
+  position: absolute;
+  width: 1.5em;
+  height: 1.5em;
+  background-image: url("../icon/checkbox\ off.svg");
+}
+.checkbox_deleted:checked + .check__box {
+  background-image: url("../icon/Checkbox\ active.svg");
+}
+.check__name {
+  margin-left: 1.5em;
+}

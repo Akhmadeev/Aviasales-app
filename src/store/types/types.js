@@ -1,0 +1,10 @@
+export const All_TRUE = "All_TRUE";
+export const All_FALSE = "All_FALSE";
+export const OTHER_INPUT = "OTHER_INPUT";
+
+
+// export const FILTER_WITHOUT_TRANSFER = "FILTER_WITHOUT_TRANSFER";
+// export const FILTER_ONE_TRANSFER = "FILTER_ONE_TRANSFER";
+// export const FILTER_TWO_TRANSFER = "FILTER_TWO_TRANSFER";
+// export const FILTER_THREE_TRANSFER = "FILTER_THREE_TRANSFER";
+

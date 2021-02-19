@@ -1,0 +1,102 @@
+.item {
+  position: relative;
+  width: 502px;
+  height: 184px;
+  background: #ffffff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.itemblock {
+  width: 462px;
+  height: 39px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sity {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  color: #a0b0b9;
+}
+.time {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #4a4a4a;
+}
+.block_info {
+  width: 141px;
+  height: 21px;
+}
+.item_price {
+  position: absolute;
+  width: 147px;
+  left: 20px;
+  top: 26px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+
+  color: #2196f3;
+}
+
+.item_logo_avia {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
+.item_info {
+  position: absolute;
+  top: 76px;
+  width: 462px;
+  height: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.item_info_bottom {
+  position: absolute;
+  top: 125px;
+  width: 462px;
+  height: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.item_indo_block {
+  width: 141px;
+}
+.item_indo_block--bottom {
+  width: 141px;
+  height: 21px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #4a4a4a;
+}
+.item_indo_block--top {
+  display: block;
+  width: 141px;
+  height: 18px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  color: #a0b0b9;
+}
