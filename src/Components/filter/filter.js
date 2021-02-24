@@ -15,7 +15,6 @@ const Filter = ({
   all_false,
 }) => {
 
-  
     const arrayFilters = [
       {
         name: 'withoutTransfers',
