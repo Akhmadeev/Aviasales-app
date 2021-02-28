@@ -100,3 +100,23 @@
 
   color: #a0b0b9;
 }
+
+.item_empty {
+  position: relative;
+  width: 502px;
+  height: 84px;
+  background: #ffecec;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.title_item_empty {
+  margin: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 21px;
+  opacity: 0.9;
+}

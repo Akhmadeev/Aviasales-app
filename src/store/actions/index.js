@@ -1,28 +1,46 @@
-import { All_TRUE, All_FALSE, OTHER_INPUT, API_STORE, SORT_CHEAP, SORT_TIME, ERROR_REQUST } from '../types/types';
+import {
+  All_TRUE,
+  All_FALSE,
+  OTHER_INPUT,
+  API_STORE,
+  SORT_CHEAP,
+  SORT_TIME,
+  ERROR_REQUST,
+  ADD_TICKETS,
+} from '../types/types';
 
 export const api_store = (payload) => ({ type: API_STORE, payload });
 
-export const sort_cheap = (payload) => {
-  const newArray = payload.sort((a, b) => a.price - b.price);
-  return { type: SORT_CHEAP, payload: newArray };
+export const sort_cheap = (payload, stop) => {
+  const newArray = payload.sort((value1, value2) => value1.price - value2.price);
+  return { type: SORT_CHEAP, payload: newArray, stop };
 };
 
 export const error_requst = () => ({ type: ERROR_REQUST });
 
-export function requstTickets() {
-    return (dispatch) => {
-      fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${localStorage.getItem('searchId')}`)
-        .then((result) => result.json())
-        // .then(res => console.log(res))
-        .then((response) => dispatch(sort_cheap(response.tickets)))
-        .catch(() => dispatch(error_requst()));
-    };
-};
+export const add_tickets = (payload, stop) => ({ type: ADD_TICKETS, payload, stop });
 
-export const sort_time = (payload) => {
-  const newArray = payload.sort((a, b) => a.segments[0].duration - b.segments[0].duration);
-  console.log(newArray);
-  return { type: SORT_TIME, payload: newArray };
+// export function requestTickets() {
+//   return () => {
+//     fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${localStorage.getItem('searchId')}`)
+//       .then((result) => result.json())
+//       .then((response) => {
+//         if (!response.stop) {
+          
+//           console.log(response.stop);
+//           requestTickets();
+//           // dispatch(add_tickets(response.tickets, response.stop));
+//         }
+//         console.log(response.stop);
+//       })
+//       .catch(() => requestTickets());
+//   };
+// }
+
+
+export const sort_time = (payload, stop) => {
+  const newArray = payload.sort((value1, value2) => value1.segments[0].duration - value2.segments[0].duration);
+  return { type: SORT_TIME, payload: newArray, stop };
 };
 
 export const other_input = (payload, booleon) => ({ type: OTHER_INPUT, name: payload, bool: booleon });

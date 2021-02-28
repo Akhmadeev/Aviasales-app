@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './App.scss';
 import { connect } from 'react-redux';
@@ -7,12 +7,28 @@ import Filter from '../filter/filter';
 import Tabs from '../tabs/tabs';
 import icon from '../../Logo.svg';
 
-function App({ requstTickets }) {
+function App({ add_tickets, stop }) {
+
+  const newArray = []; 
+
   const requestApi = () => {
     fetch('https://front-test.beta.aviasales.ru/search')
       .then((response) => response.json())
       .then((result) => localStorage.setItem('searchId', result.searchId));
   };
+
+  function requestTickets() {
+    fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${localStorage.getItem('searchId')}`)
+      .then((result) => result.json())
+      .then((response) => {
+        if (!response.stop) requestTickets();
+        newArray.push(response.tickets);
+        add_tickets(newArray.flat(), response.stop);
+      })
+      // .catch((err) => {
+      //   console.error(err.status);
+      // });
+  }
 
   // const requstBilet = () => {
   //   fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${localStorage.getItem('searchId')}`)
@@ -25,9 +41,14 @@ function App({ requstTickets }) {
 
   useEffect(() => {
     requestApi();
-    requstTickets();
+    requestTickets();
   }, []);
-  // requstBilet();
+
+  // while (!stop) {y
+  //   requstTickets();
+  // }
+
+  if (!stop) requestTickets();
 
   return (
     <div className="app">
@@ -35,7 +56,7 @@ function App({ requstTickets }) {
         <img src={icon} alt="aviasales" />
       </div>
       <div className="menu">
-        <Filter />
+        <Filter/>
         <Tabs />
       </div>
     </div>
@@ -43,15 +64,18 @@ function App({ requstTickets }) {
 }
 
 const mapStateToProps = (state) => ({
-  requstTickets: state.arrayApi.requstTickets,
+  add_tickets: state.arrayApi.requestTickets,
+  stop: state.arrayApi.stop,
 });
 
 export default connect(mapStateToProps, action)(App);
 
 App.defaultProps = {
-  requstTickets: () => {},
+  add_tickets: () => {},
+  stop: false,
 };
 
 App.propTypes = {
-  requstTickets: PropTypes.func,
+  add_tickets: PropTypes.func,
+  stop: PropTypes.bool,
 };

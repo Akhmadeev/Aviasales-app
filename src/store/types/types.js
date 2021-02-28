@@ -8,6 +8,9 @@ export const SORT_TIME = 'SORT_TIME';
 export const ERROR_REQUST = 'ERROR_REQUST';
 
 
+
+export const ADD_TICKETS = 'ADD_TICKETS';
+
 // export const FILTER_WITHOUT_TRANSFER = "FILTER_WITHOUT_TRANSFER";
 // export const FILTER_ONE_TRANSFER = "FILTER_ONE_TRANSFER";
 // export const FILTER_TWO_TRANSFER = "FILTER_TWO_TRANSFER";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { format, add } from 'date-fns';
@@ -6,7 +6,7 @@ import * as action from '../../../store/actions';
 import './item.scss';
 import logoAvia from './logo/S7Logo.svg';
 
-const Item = ({ arrayApi, bilets }) => {
+const Item = ({ arrayApi, bilets, checkboxOnline }) => {
   const [ticket, setTicket] = useState([]);
 
   const decorPrice = (num) => {
@@ -20,8 +20,52 @@ const Item = ({ arrayApi, bilets }) => {
     return `${hours}ч ${minutes}м`;
   };
 
+  // const FilterWithoutTransfers = (arr) => {
+  //   const value1 = arr.segments[0].stops;
+  //   const value2 = arr.segments[1].stops;
+  //   if (value1.length === 0 && value2.length === 0) return true;
+  //   return false
+  // }
+  // const FilterONETransfers = (arr) => {
+  //   const value1 = arr.segments[0].stops;
+  //   const value2 = arr.segments[1].stops;
+  //   if (value1.length === 1 && value2.length === 1) return true;
+  //   return false;
+  // };
+  //  const FilterTwoTransfers = (arr) => {
+  //    const value1 = arr.segments[0].stops;
+  //    const value2 = arr.segments[1].stops;
+  //    if (value1.length === 2 && value2.length === 2) return true;
+  //    return false;
+  // };
+  //  const FilterThreeTransfers = (arr) => {
+  //    const value1 = arr.segments[0].stops;
+  //    const value2 = arr.segments[1].stops;
+  //    if (value1.length === 3 && value2.length === 3) return true;
+  //    return false;
+  //  };
+
+  const filterStops = (arrayFilter, arrayTickets) => {
+    const newArray = [];
+    const idFilter = [];
+    const newArrayFilters = Object.values(arrayFilter);
+    if (arrayTickets) {
+      newArrayFilters.findIndex((value, index) => {
+       if(value) idFilter.push(Number(index) - 1);
+        return ''
+      });
+      arrayTickets.map((element) => {
+        if (idFilter.includes(element.segments[0].stops.length)) newArray.push(element);
+        return element;
+      });
+    }
+    return newArray;
+  };
+
   const aviaTicket = (element) => {
-    const { price } = element;
+    const { price, carrier } = element;
+
+    const dataDuration = element.segments[0].date;
 
     const itemInfo = (className, id) => {
       const { destination, date, duration, origin, stops } = element.segments[id];
@@ -35,7 +79,7 @@ const Item = ({ arrayApi, bilets }) => {
       const stopsTicket = (value) => {
         if (value.length === 0) return 'без';
         if (value) return value.length;
-        return 'дынных нет';
+        return 'данных нет';
       };
 
       return (
@@ -59,7 +103,7 @@ const Item = ({ arrayApi, bilets }) => {
     };
 
     return (
-      <div className="item" key={price}>
+      <div className="item" key={carrier + price + dataDuration}>
         <span className="item_price">{decorPrice(price)} Р </span>
         <img className="item_logo_avia" alt="logo" src={logoAvia} />
         {itemInfo('item_info', 0)}
@@ -69,9 +113,22 @@ const Item = ({ arrayApi, bilets }) => {
   };
 
   useEffect(() => {
-    const arr = arrayApi.slice(0, 5);
-    setTicket(arr);
-  }, [bilets, arrayApi]);
+    setTicket(filterStops(checkboxOnline, arrayApi).slice(0, 5));
+  }, [bilets, arrayApi, checkboxOnline]);
+
+  const main = (checkbox, array) => {
+    
+    const newArrayFilters = Object.values(checkbox);
+    if (!newArrayFilters.includes(true)) {
+      return (
+        <div className="item_empty">
+          <h3 className="title_item_empty">Рейсов, подходящих под заданные фильтры, не найдено</h3>
+        </div>
+      );
+    }
+
+    return array.map((element) => aviaTicket(element))
+  }
 
   if (arrayApi[0] === 'error') {
     return (
@@ -81,24 +138,26 @@ const Item = ({ arrayApi, bilets }) => {
     );
   }
 
-  return <div>{ticket.map((element) => aviaTicket(element))}</div>;
-};;
+  return <div>{main(checkboxOnline, ticket)}</div>;
+};
 
 const mapStateToProps = (state) => ({
   arrayApi: state.arrayApi[0],
+  checkboxOnline: state.checkbox,
 });
 
 export default connect(mapStateToProps, action)(Item);
 
-
 Item.defaultProps = {
   arrayApi: [],
   bilets: true,
+  checkboxOnline: {},
 };
 
 Item.propTypes = {
   arrayApi: PropTypes.array,
   bilets: PropTypes.bool,
+  checkboxOnline: PropTypes.object,
 };
 
 //  <div className='item'>
