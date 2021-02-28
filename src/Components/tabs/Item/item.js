@@ -20,31 +20,6 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
     return `${hours}ч ${minutes}м`;
   };
 
-  // const FilterWithoutTransfers = (arr) => {
-  //   const value1 = arr.segments[0].stops;
-  //   const value2 = arr.segments[1].stops;
-  //   if (value1.length === 0 && value2.length === 0) return true;
-  //   return false
-  // }
-  // const FilterONETransfers = (arr) => {
-  //   const value1 = arr.segments[0].stops;
-  //   const value2 = arr.segments[1].stops;
-  //   if (value1.length === 1 && value2.length === 1) return true;
-  //   return false;
-  // };
-  //  const FilterTwoTransfers = (arr) => {
-  //    const value1 = arr.segments[0].stops;
-  //    const value2 = arr.segments[1].stops;
-  //    if (value1.length === 2 && value2.length === 2) return true;
-  //    return false;
-  // };
-  //  const FilterThreeTransfers = (arr) => {
-  //    const value1 = arr.segments[0].stops;
-  //    const value2 = arr.segments[1].stops;
-  //    if (value1.length === 3 && value2.length === 3) return true;
-  //    return false;
-  //  };
-
   const filterStops = (arrayFilter, arrayTickets) => {
     const newArray = [];
     const idFilter = [];
@@ -159,17 +134,3 @@ Item.propTypes = {
   bilets: PropTypes.bool,
   checkboxOnline: PropTypes.object,
 };
-
-//  <div className='item'>
-//    <div className='itemblock'>
-//      <span>13 400 Р</span>
-//      <img src={logoAvia}></img>
-//    </div>
-//    <div className='itemblock'>
-//      <div className='block_info'>
-//        <span className='sity'>mow - hkt</span>
-//        <span className='time'>10:45 - 08:00</span>
-//      </div>
-//    </div>
-//    <div className='itemblock'></div>
-//  </div>;

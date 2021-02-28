@@ -25,28 +25,14 @@ function App({ add_tickets, stop }) {
         newArray.push(response.tickets);
         add_tickets(newArray.flat(), response.stop);
       })
-      // .catch((err) => {
-      //   console.error(err.status);
-      // });
   }
 
-  // const requstBilet = () => {
-  //   fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${localStorage.getItem('searchId')}`)
-  //     .then((result) => result.json())
-  //     .then((response) => {
-  //       api_store(response.tickets);
-  //       console.log(response.tickets);
-  //     });
-  // };
 
   useEffect(() => {
     requestApi();
     requestTickets();
   }, []);
 
-  // while (!stop) {y
-  //   requstTickets();
-  // }
 
   if (!stop) requestTickets();
 
