@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as action from '../../store/actions';
 import Filter from '../filter/filter';
 import Tabs from '../tabs/tabs';
-import icon from '../icon/Logo.svg';
+import icon from './Logo.svg';
 
 function App({ add_tickets, stop }) {
 
