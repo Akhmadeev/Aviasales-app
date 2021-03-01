@@ -37,6 +37,16 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
     return newArray;
   };
 
+  function name(str) {
+    const newStr = str.toLowerCase();
+    const revercArr = str.split('').reverse().join('').toLowerCase();
+    console.log(newStr, revercArr);
+    if (newStr === revercArr) return 'true';
+    return 'false';
+  }
+
+  name('adda')
+
   const aviaTicket = (element) => {
     const { price, carrier } = element;
 
