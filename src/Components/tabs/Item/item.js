@@ -37,15 +37,6 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
     return newArray;
   };
 
-  function name(str) {
-    const newStr = str.toLowerCase();
-    const revercArr = str.split('').reverse().join('').toLowerCase();
-    console.log(newStr, revercArr);
-    if (newStr === revercArr) return 'true';
-    return 'false';
-  }
-
-  name('adda')
 
   const aviaTicket = (element) => {
     const { price, carrier } = element;
@@ -102,7 +93,6 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
   }, [bilets, arrayApi, checkboxOnline]);
 
   const main = (checkbox, array) => {
-    
     const newArrayFilters = Object.values(checkbox);
     if (!newArrayFilters.includes(true)) {
       return (
@@ -112,8 +102,8 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
       );
     }
 
-    return array.map((element) => aviaTicket(element))
-  }
+    return array.map((element) => aviaTicket(element));
+  };
 
   if (arrayApi[0] === 'error') {
     return (

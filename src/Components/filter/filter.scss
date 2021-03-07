@@ -54,11 +54,11 @@ label {
   position: absolute;
   width: 1.5em;
   height: 1.5em;
-  background-image: url("../icon/checkbox\ off.svg");
+  background-image: url('../icon/checkbox\ off.svg');
 }
 .checkbox_deleted:checked + .check__box {
-  background-image: url("../icon/Checkbox\ active.svg");
+  background-image: url('../icon/Checkbox\ active.svg');
 }
 .check__name {
-  margin-left: 1.5em;
+  margin-left: 2em;
 }

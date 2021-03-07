@@ -18,13 +18,11 @@ const loggerMiddleware = () => (next) => (action) => {
   return result;
 };
 
-
 const store = createStore(allRudecesrs, composeEnhancers(applyMiddleware(loggerMiddleware, reduxThunk)));
 
- // const store = createStore(allRudecesrs);
-
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById("root"));
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
