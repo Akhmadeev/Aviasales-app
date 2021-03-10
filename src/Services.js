@@ -1,22 +1,18 @@
-class Services {
-  requestApi = () => {
-    fetch('https://front-test.beta.aviasales.ru/search')
-      .then((response) => response.json())
-          .then((result) => localStorage.setItem('searchId', result.searchId))
-        .catch(err => console.log(err))
-    };
+export default class Services {
+  baseUrl = 'https://front-test.beta.aviasales.ru';
 
-    newArray = []; 
+  getResourse = async (url, option) => {
+    const res = await fetch(url, option);
 
-    requestTickets = (func) => {
-    fetch(`https://front-test.beta.aviasales.ru/tickets?searchId=${localStorage.getItem('searchId')}`)
-      .then((result) => result.json())
-      .then((response) => {
-        if (!response.stop) this.requestTickets();
-        this.newArray.push(response.tickets);
-        func(this.newArray.flat(), response.stop);
-      })
-      .catch((err) => console.log(err));
-  }
+    const body = res.json();
+    return body;
+  };
+
+  requestApi = () =>
+    this.getResourse(`${this.baseUrl}/search`).then((result) => localStorage.setItem('searchId', result.searchId));
+
+  requestTickets () {
+    return this.getResourse(`${this.baseUrl}/tickets?searchId=${localStorage.getItem('searchId')}`)
+      .catch(() => this.requestTickets())
+  };
 }
-export default new Services();

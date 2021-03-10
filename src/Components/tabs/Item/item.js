@@ -4,21 +4,11 @@ import { connect } from 'react-redux';
 import { format, add } from 'date-fns';
 import * as action from '../../../store/actions';
 import './item.scss';
-import logoAvia from './logo/S7Logo.svg';
+import logoAvia from './logo/S7Logo.svg'; 
+import { decorPrice, stopsTicket, transitTime } from '../../../utils';
 
 const Item = ({ arrayApi, bilets, checkboxOnline }) => {
   const [ticket, setTicket] = useState([]);
-
-  const decorPrice = (num) => {
-    const number = num.toString();
-    return `${number.slice(0, -3)} ${number.slice(-3)}`;
-  };
-
-  const transitTime = (value) => {
-    const hours = Math.floor(value / 60);
-    const minutes = value % 60;
-    return `${hours}ч ${minutes}м`;
-  };
 
   const filterStops = (arrayFilter, arrayTickets) => {
     const newArray = [];
@@ -40,9 +30,7 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
 
   const aviaTicket = (element) => {
     const { price, carrier } = element;
-
     const dataDuration = element.segments[0].date;
-
     const itemInfo = (className, id) => {
       const { destination, date, duration, origin, stops } = element.segments[id];
 
@@ -51,12 +39,6 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
         minutes: duration,
       });
       const durationHours = format(new Date(result), 'p');
-
-      const stopsTicket = (value) => {
-        if (value.length === 0) return 'без';
-        if (value) return value.length;
-        return 'данных нет';
-      };
 
       return (
         <div className={className}>

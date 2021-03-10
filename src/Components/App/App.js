@@ -7,15 +7,27 @@ import * as action from '../../store/actions';
 import Filter from '../filter/filter';
 import Tabs from '../tabs/tabs';
 import icon from './Logo.svg';
-import Services from '../../Services';
+import Services  from '../../Services';
 
 function App({ add_tickets, stop }) {
-  useEffect(() => {
-    Services.requestApi();
-    Services.requestTickets(add_tickets);
-  }, []);
+  console.log(stop);
+  const apiService = new Services;
 
-  if (!stop) Services.requestTickets(add_tickets);
+  const newArray = [];
+
+  function recursion() {
+    return apiService.requestTickets().then((response) => {
+      newArray.push(response.tickets);
+      add_tickets(newArray.flat(), response.stop);
+      if (!response.stop) return recursion();
+      return newArray;
+    });
+  }
+
+  useEffect(() => {
+    apiService.requestApi();
+    recursion();
+  }, []);
 
   return (
     <div className="app">
@@ -33,6 +45,7 @@ function App({ add_tickets, stop }) {
 const mapStateToProps = (state) => ({
   add_tickets: state.arrayApi.requestTickets,
   stop: state.arrayApi.stop,
+  arrayApi: state.arrayApi,
 });
 
 export default connect(mapStateToProps, action)(App);
