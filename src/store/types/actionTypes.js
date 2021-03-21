@@ -2,6 +2,7 @@ export const All_TRUE = "All_TRUE";
 export const All_FALSE = "All_FALSE";
 export const OTHER_INPUT = "OTHER_INPUT";
 
+export const ADD_ID = 'ADD_ID';
 export const API_STORE = 'API_STORE';
 export const SORT_CHEAP = 'SORT_CHEAP';
 export const SORT_TIME = 'SORT_TIME';

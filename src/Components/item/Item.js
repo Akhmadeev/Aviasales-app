@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { format, add } from 'date-fns';
-import * as action from '../../../store/actions';
+import * as action from '../../store/actions';
 import './item.scss';
-import logoAvia from './logo/S7Logo.svg'; 
-import { decorPrice, stopsTicket, transitTime } from '../../../utils';
+import logoAvia from '../icon/S7Logo.svg'; 
+import { decorPrice, stopsTicket, transitTime } from '../../utils';
+import SpinError from '../error/SpinError';
 
-const Item = ({ arrayApi, bilets, checkboxOnline }) => {
+const Item = ({ arrayApi, tickets, checkboxOnline, stop }) => {
   const [ticket, setTicket] = useState([]);
+  
 
   const filterStops = (arrayFilter, arrayTickets) => {
     const newArray = [];
@@ -16,8 +18,8 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
     const newArrayFilters = Object.values(arrayFilter);
     if (arrayTickets) {
       newArrayFilters.findIndex((value, index) => {
-       if(value) idFilter.push(Number(index) - 1);
-        return ''
+        if (value) idFilter.push(Number(index) - 1);
+        return '';
       });
       arrayTickets.map((element) => {
         if (idFilter.includes(element.segments[0].stops.length)) newArray.push(element);
@@ -26,7 +28,6 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
     }
     return newArray;
   };
-
 
   const aviaTicket = (element) => {
     const { price, carrier } = element;
@@ -71,8 +72,12 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
   };
 
   useEffect(() => {
-    setTicket(filterStops(checkboxOnline, arrayApi).slice(0, 5));
-  }, [bilets, arrayApi, checkboxOnline]);
+    console.log(Object.values(arrayApi).length > 0);
+    if (Object.values(arrayApi).length > 0) {
+      setTicket(filterStops(checkboxOnline, arrayApi).slice(0, 5));
+    }
+    
+  }, [tickets, arrayApi, checkboxOnline]);
 
   const main = (checkbox, array) => {
     const newArrayFilters = Object.values(checkbox);
@@ -87,13 +92,7 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
     return array.map((element) => aviaTicket(element));
   };
 
-  if (arrayApi[0] === 'error') {
-    return (
-      <div>
-        <h1>{arrayApi[1]}</h1>
-      </div>
-    );
-  }
+  if (!stop) return SpinError();
 
   return <div>{main(checkboxOnline, ticket)}</div>;
 };
@@ -101,18 +100,21 @@ const Item = ({ arrayApi, bilets, checkboxOnline }) => {
 const mapStateToProps = (state) => ({
   arrayApi: state.arrayApi[0],
   checkboxOnline: state.checkbox,
+  stop: state.arrayApi.stop,
 });
 
 export default connect(mapStateToProps, action)(Item);
 
 Item.defaultProps = {
   arrayApi: [],
-  bilets: true,
+  tickets: true,
   checkboxOnline: {},
+  stop: false
 };
 
 Item.propTypes = {
   arrayApi: PropTypes.array,
-  bilets: PropTypes.bool,
+  tickets: PropTypes.bool,
   checkboxOnline: PropTypes.object,
+  stop: PropTypes.bool
 };

@@ -1,4 +1,4 @@
-import { All_TRUE, All_FALSE, OTHER_INPUT } from "../types/types";
+import { All_TRUE, All_FALSE, OTHER_INPUT } from "../types/actionTypes";
 
 const check_bokses = {
   all: false,

@@ -1,4 +1,4 @@
-import { API_STORE, SORT_CHEAP, SORT_TIME, ERROR_REQUST, ADD_TICKETS } from '../types/types';
+import { API_STORE, SORT_CHEAP, SORT_TIME, ERROR_REQUST, ADD_TICKETS } from '../types/actionTypes';
 
 
 const reducer_request = (state = [], action) => {

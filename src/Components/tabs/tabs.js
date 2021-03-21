@@ -1,45 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as action from '../../store/actions';
 import './tabs.scss';
-import Item from './Item/item';
+import Item from '../item/Item';
 
-const Tabs = ({ arrayApi, sort_cheap, sort_time, stop }) => {
-  
-  const [leftBtn, setLeftBtn] = useState('btn_left active_btn');
-  const [rightBtn, setRightBtn] = useState('btn_rigth btn');
-  const [bilet, setBilet] = useState(false);
+const Tabs = ({ arrayApi, sort_cheap_tickets, sort_time_fast_tickets, stop }) => {
+  const [tickets, setTickets] = useState(false);
 
   const regulitorLeft = () => {
-    setLeftBtn('btn_left active_btn');
-    setRightBtn('btn_rigth btn');
-    sort_cheap(arrayApi, stop);
-    setBilet(!bilet);
+    sort_cheap_tickets(arrayApi, stop);
+    setTickets(!tickets);
   };
   const regulitorRight = () => {
-    setLeftBtn('btn_left btn');
-    setRightBtn('btn_rigth active_btn');
-    sort_time(arrayApi, stop);
-    setBilet(!bilet);
+    sort_time_fast_tickets(arrayApi, stop);
+    setTickets(!tickets);
   };
-
-  useEffect(() => {
-    setBilet(true);
-  }, []);
 
   return (
     <div>
       <div className="block_btn">
-        <button className={leftBtn} onClick={regulitorLeft} type="submit">
+        <button className='btn btn_left' onClick={regulitorLeft} type="submit">
           Самый дешевый
         </button>
-        <button className={rightBtn} onClick={regulitorRight} type="submit">
+        <button className='btn btn_rigth' onClick={regulitorRight} type="submit">
           Самый быстрый
         </button>
       </div>
       <div>
-        <Item bilets={bilet} />
+        <Item tickets={tickets} />
       </div>
     </div>
   );
@@ -55,13 +44,13 @@ export default connect(mapStateToProps, action)(Tabs);
 Tabs.defaultProps = {
   stop: false,
   arrayApi: [],
-  sort_cheap: () => {},
-  sort_time: () => {},
+  sort_cheap_tickets: () => {},
+  sort_time_fast_tickets: () => {},
 };
 
 Tabs.propTypes = {
   stop: PropTypes.bool,
   arrayApi: PropTypes.array,
-  sort_cheap: PropTypes.func,
-  sort_time: PropTypes.func,
+  sort_cheap_tickets: PropTypes.func,
+  sort_time_fast_tickets: PropTypes.func,
 };

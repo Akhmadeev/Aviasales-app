@@ -4,30 +4,39 @@ import 'antd/dist/antd.css';
 import './App.scss';
 import { connect } from 'react-redux';
 import * as action from '../../store/actions';
-import Filter from '../filter/filter';
-import Tabs from '../tabs/tabs';
-import icon from './Logo.svg';
-import Services  from '../../Services';
+import Filter from '../filter/Filter';
+import Tabs from '../tabs/Tabs';
+import icon from '../icon/Logo.svg';
+import Services from '../../services';
 
-function App({ add_tickets, stop }) {
-  console.log(stop);
-  const apiService = new Services;
+function App({ add_tickets,  get_id_session, id }) {
+
+  const apiService = new Services();
 
   const newArray = [];
 
   function recursion() {
-    return apiService.requestTickets().then((response) => {
-      newArray.push(response.tickets);
-      add_tickets(newArray.flat(), response.stop);
-      if (!response.stop) return recursion();
-      return newArray;
-    });
+    return apiService
+      .requestTickets(id)
+      .then((response) => {
+        newArray.push(response.tickets);
+        add_tickets(newArray.flat(), response.stop);
+        if (!response.stop) return recursion();
+        return newArray;
+      })
+      .catch(() => recursion());
   }
+  
+  useEffect(() => {
+    apiService.requestApi().then((result) => {
+      get_id_session(result.searchId);
+    });
+  }, []);
 
   useEffect(() => {
-    apiService.requestApi();
-    recursion();
-  }, []);
+    if(id) recursion();
+  }, [id])
+
 
   return (
     <div className="app">
@@ -36,7 +45,7 @@ function App({ add_tickets, stop }) {
       </div>
       <div className="menu">
         <Filter />
-        <Tabs />
+        <Tabs/>
       </div>
     </div>
   );
@@ -44,18 +53,20 @@ function App({ add_tickets, stop }) {
 
 const mapStateToProps = (state) => ({
   add_tickets: state.arrayApi.requestTickets,
-  stop: state.arrayApi.stop,
   arrayApi: state.arrayApi,
+  id: state.id,
 });
 
 export default connect(mapStateToProps, action)(App);
 
 App.defaultProps = {
   add_tickets: () => {},
-  stop: false,
+  get_id_session: () => {},
+  id: '',
 };
 
 App.propTypes = {
   add_tickets: PropTypes.func,
-  stop: PropTypes.bool,
+  get_id_session: PropTypes.func,
+  id: PropTypes.string,
 };
