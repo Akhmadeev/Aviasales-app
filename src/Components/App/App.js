@@ -36,7 +36,6 @@ function App({ add_tickets,  get_id_session}) {
   }, []);
 
 
-
   return (
     <div className="app">
       <div className="icon">
