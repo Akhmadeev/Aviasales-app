@@ -5,22 +5,22 @@ const reducer_request = (state = [], action) => {
   switch (action.type) {
     case ADD_TICKETS:
       return {
-        0: action.payload,
+        tickets: action.payload,
         stop: action.stop,
       };
     case API_STORE:
       return {
-        0: action.payload,
+        tickets: action.payload,
         stop: action.stop,
       };
     case SORT_CHEAP:
       return {
-        0: action.payload,
+        tickets: action.payload,
         stop: action.stop,
       };
     case SORT_TIME:
       return {
-        0: action.payload,
+        tickets: action.payload,
         stop: action.stop,
       };
     case ERROR_REQUST:

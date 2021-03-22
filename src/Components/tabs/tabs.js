@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as action from '../../store/actions';
 import './tabs.scss';
 import Item from '../item/Item';
+import SpinError from '../error/SpinError';
 
 const Tabs = ({ arrayApi, sort_cheap_tickets, sort_time_fast_tickets, stop }) => {
   const [tickets, setTickets] = useState(false);
@@ -20,22 +21,20 @@ const Tabs = ({ arrayApi, sort_cheap_tickets, sort_time_fast_tickets, stop }) =>
   return (
     <div>
       <div className="block_btn">
-        <button className='btn btn_left' onClick={regulitorLeft} type="submit">
+        <button className="btn btn_left" onClick={regulitorLeft} type="submit">
           Самый дешевый
         </button>
-        <button className='btn btn_rigth' onClick={regulitorRight} type="submit">
+        <button className="btn btn_rigth" onClick={regulitorRight} type="submit">
           Самый быстрый
         </button>
       </div>
-      <div>
-        <Item tickets={tickets} />
-      </div>
+      <div>{stop ? <Item tickets={tickets} /> : SpinError()}</div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  arrayApi: state.arrayApi[0],
+  arrayApi: state.arrayApi.tickets,
   stop: state.arrayApi.stop,
 });
 

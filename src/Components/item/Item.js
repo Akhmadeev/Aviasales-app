@@ -72,7 +72,6 @@ const Item = ({ arrayApi, tickets, checkboxOnline, stop }) => {
   };
 
   useEffect(() => {
-    console.log(Object.values(arrayApi).length > 0);
     if (Object.values(arrayApi).length > 0) {
       setTicket(filterStops(checkboxOnline, arrayApi).slice(0, 5));
     }
@@ -98,7 +97,7 @@ const Item = ({ arrayApi, tickets, checkboxOnline, stop }) => {
 };
 
 const mapStateToProps = (state) => ({
-  arrayApi: state.arrayApi[0],
+  arrayApi: state.arrayApi.tickets,
   checkboxOnline: state.checkbox,
   stop: state.arrayApi.stop,
 });
@@ -118,3 +117,5 @@ Item.propTypes = {
   checkboxOnline: PropTypes.object,
   stop: PropTypes.bool
 };
+
+

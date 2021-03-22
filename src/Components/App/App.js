@@ -9,7 +9,7 @@ import Tabs from '../tabs/Tabs';
 import icon from '../icon/Logo.svg';
 import Services from '../../services';
 
-function App({ add_tickets,  get_id_session, id }) {
+function App({ add_tickets,  get_id_session}) {
 
   const apiService = new Services();
 
@@ -17,25 +17,24 @@ function App({ add_tickets,  get_id_session, id }) {
 
   function recursion() {
     return apiService
-      .requestTickets(id)
+      .requestTickets()
       .then((response) => {
         newArray.push(response.tickets);
         add_tickets(newArray.flat(), response.stop);
         if (!response.stop) return recursion();
         return newArray;
       })
-      .catch(() => recursion());
+      .catch((err) => console.log(err));
   }
   
   useEffect(() => {
     apiService.requestApi().then((result) => {
       get_id_session(result.searchId);
+      localStorage.setItem('searchId', result.searchId);
+      recursion();
     });
   }, []);
 
-  useEffect(() => {
-    if(id) recursion();
-  }, [id])
 
 
   return (
@@ -54,7 +53,7 @@ function App({ add_tickets,  get_id_session, id }) {
 const mapStateToProps = (state) => ({
   add_tickets: state.arrayApi.requestTickets,
   arrayApi: state.arrayApi,
-  id: state.id,
+
 });
 
 export default connect(mapStateToProps, action)(App);
@@ -62,11 +61,11 @@ export default connect(mapStateToProps, action)(App);
 App.defaultProps = {
   add_tickets: () => {},
   get_id_session: () => {},
-  id: '',
+ 
 };
 
 App.propTypes = {
   add_tickets: PropTypes.func,
   get_id_session: PropTypes.func,
-  id: PropTypes.string,
+
 };
