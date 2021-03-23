@@ -33,8 +33,7 @@ function App({ add_tickets,  get_id_session}) {
       localStorage.setItem('searchId', result.searchId);
       recursion();
     });
-  }, []);
-
+  }, []); 
 
   return (
     <div className="app">
