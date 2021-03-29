@@ -24,7 +24,7 @@ function App({ add_tickets,  get_id_session}) {
         if (!response.stop) return recursion();
         return newArray;
       })
-      .catch((err) => console.log(err));
+      .catch(() => {});
   }
   
   useEffect(() => {
