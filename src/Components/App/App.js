@@ -51,7 +51,6 @@ function App({ add_tickets,  get_id_session}) {
 const mapStateToProps = (state) => ({
   add_tickets: state.arrayApi.requestTickets,
   arrayApi: state.arrayApi,
-
 });
 
 export default connect(mapStateToProps, action)(App);
@@ -59,11 +58,9 @@ export default connect(mapStateToProps, action)(App);
 App.defaultProps = {
   add_tickets: () => {},
   get_id_session: () => {},
- 
 };
 
 App.propTypes = {
   add_tickets: PropTypes.func,
   get_id_session: PropTypes.func,
-
 };
