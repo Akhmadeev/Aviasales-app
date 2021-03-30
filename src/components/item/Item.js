@@ -9,6 +9,7 @@ import { decorPrice, stopsTicket, transitTime } from '../../utils';
 import SpinError from '../error/SpinError';
 
 const Item = ({ arrayApi, tickets, checkboxOnline, stop }) => {
+  
   const [ticket, setTicket] = useState([]);
   
 
